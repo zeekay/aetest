@@ -274,7 +274,7 @@ func (i *instance) startChild() (err error) {
 		select {
 		case i.apiURL = <-apic:
 		case i.adminURL = <-adminc:
-		case <-time.After(15 * time.Second):
+		case <-time.After(5 * time.Second):
 			if p := i.child.Process; p != nil {
 				p.Kill()
 			}
