@@ -246,7 +246,8 @@ func (i *instance) startChild() (err error) {
 	if err != nil {
 		return err
 	}
-	stderr = io.TeeReader(stderr, os.Stderr)
+	// TODO: Make this optional.
+	// stderr = io.TeeReader(stderr, os.Stderr)
 	if err = i.child.Start(); err != nil {
 		return err
 	}
