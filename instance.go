@@ -247,7 +247,8 @@ func (i *instance) startChild() (err error) {
 	if err != nil {
 		return err
 	}
-	stderr = io.TeeReader(stderr, os.Stderr)
+	// TODO: Make this optional.
+	// stderr = io.TeeReader(stderr, os.Stderr)
 	if err = i.child.Start(); err != nil {
 		return err
 	}
@@ -275,7 +276,7 @@ func (i *instance) startChild() (err error) {
 		select {
 		case i.apiURL = <-apic:
 		case i.adminURL = <-adminc:
-		case <-time.After(15 * time.Second):
+		case <-time.After(5 * time.Second):
 			if p := i.child.Process; p != nil {
 				p.Kill()
 			}
