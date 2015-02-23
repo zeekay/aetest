@@ -54,10 +54,11 @@ import (
 	"sync/atomic"
 	"time"
 
+	"github.com/golang/protobuf/proto"
+
 	"appengine"
 	"appengine/user"
 	"appengine_internal"
-	"code.google.com/p/goprotobuf/proto"
 
 	basepb "appengine_internal/base"
 	remoteapipb "appengine_internal/remote_api"
