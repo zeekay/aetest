@@ -153,7 +153,7 @@ func (i *instance) Close() (err error) {
 		res.Body.Close()
 
 		select {
-		case <-time.After(15 * time.Second):
+		case <-time.After(20 * time.Second):
 			p.Kill()
 			return errors.New("timeout killing child process")
 		case err = <-errc:
@@ -276,7 +276,7 @@ func (i *instance) startChild() (err error) {
 		select {
 		case i.apiURL = <-apic:
 		case i.adminURL = <-adminc:
-		case <-time.After(5 * time.Second):
+		case <-time.After(20 * time.Second):
 			if p := i.child.Process; p != nil {
 				p.Kill()
 			}
