@@ -13,6 +13,7 @@ type Instance interface {
 	io.Closer
 	// NewRequest returns an *http.Request associated with this instance.
 	NewRequest(method, urlStr string, body io.Reader) (*http.Request, error)
+	NewContext() (context.Context, error)
 }
 
 // Options is used to specify options when creating an Instance.
