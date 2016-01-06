@@ -5,7 +5,6 @@ import (
 	"net/http"
 
 	"golang.org/x/net/context"
-	"google.golang.org/appengine"
 )
 
 // Instance represents a running instance of the development API Server.
@@ -29,20 +28,14 @@ type Options struct {
 // NewContext starts an instance of the development API server, and returns
 // a context that will route all API calls to that server, as well as a
 // closure that must be called when the Context is no longer required.
-func NewContext() (context.Context, func(), error) {
-	inst, err := NewInstance(nil)
+func NewContext(opts *Options) (context.Context, Instance, error) {
+	inst, err := NewInstance(opts)
 	if err != nil {
 		return nil, nil, err
 	}
-	req, err := inst.NewRequest("GET", "/", nil)
-	if err != nil {
-		inst.Close()
-		return nil, nil, err
-	}
-	ctx := appengine.NewContext(req)
-	return ctx, func() {
-		inst.Close()
-	}, nil
+
+	ctx, err := inst.NewContext()
+	return ctx, inst, err
 }
 
 // PrepareDevAppserver is a hook which, if set, will be called before the

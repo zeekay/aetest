@@ -17,6 +17,8 @@ import (
 	"regexp"
 	"time"
 
+	"appengine"
+
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/internal"
 )
@@ -54,6 +56,16 @@ type instance struct {
 	appDir   string
 	appID    string
 	relFuncs []func() // funcs to release any associated contexts
+}
+
+// Gets a new app engine context from an instance
+func (i *instance) NewContext() (context.Context, error) {
+	req, err := i.NewRequest("GET", "/", nil)
+	if err != nil {
+		i.Close()
+		return nil, err
+	}
+	return appengine.NewContext(req), nil
 }
 
 // NewRequest returns an *http.Request associated with this instance.
