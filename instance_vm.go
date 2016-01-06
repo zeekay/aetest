@@ -1,5 +1,3 @@
-// +build !appengine
-
 package aetest
 
 import (
@@ -17,7 +15,7 @@ import (
 	"regexp"
 	"time"
 
-	"appengine"
+	"google.golang.org/appengine"
 
 	"golang.org/x/net/context"
 	"google.golang.org/appengine/internal"
